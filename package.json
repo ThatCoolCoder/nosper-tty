@@ -1,0 +1,26 @@
+{
+  "name": "nosper-tty",
+  "version": "0.1.0",
+  "description": "Terminal calculator powered by Nosper Engine",
+  "main": "src/main.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThatCoolCoder/nosper-tty.git"
+  },
+  "keywords": [
+    "calculator",
+    "terminal"
+  ],
+  "author": "ThatCoolCoder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThatCoolCoder/nosper-tty/issues"
+  },
+  "homepage": "https://github.com/ThatCoolCoder/nosper-tty#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
