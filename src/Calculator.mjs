@@ -12,6 +12,13 @@ const calculatorHelpMessage = `
 Usage (WIP)
 -----------
 
+Commands:
+ exit       Exit the program
+ help       Show this menu
+ morehelp   Show detailed documentation on all functions
+ rad        Switch to radians
+ deg        Switch to degrees
+
 Basic operators: 
  Addition:          +
  Subtraction:       -
@@ -54,13 +61,19 @@ const calculatorMoreHelpMessage = `Todo: write this
 export class Calculator {
     running = false;
     prompt = '> ';
-    commands = { 'exit' : () => {
-        this.running = false;
-    }, 'help' : () => {
-        this.console.log(calculatorHelpMessage)
-    }, 'morehelp' : () => {
-        this.console.log(calculatorMoreHelpMessage)
-    }};
+    commands = {
+        'exit' : () => {
+            this.running = false;
+        }, 'help' : () => {
+            this.console.log(calculatorHelpMessage)
+        }, 'morehelp' : () => {
+            this.console.log(calculatorMoreHelpMessage)
+        }, 'rad' : () => {
+            this.switchAngleMode(true);
+        }, 'deg' : () => {     
+            this.switchAngleMode(false);
+        }
+    };
     
     constructor(_console, readline, evaluator=null) {
         this.console = _console;
@@ -92,6 +105,17 @@ export class Calculator {
                     this.console.log(error);
                 }
             }
+        }
+    }
+
+    switchAngleMode(useRadians) {
+        var angleModeName = useRadians ? 'radians' : 'degrees';
+        if (useRadians == this.evaluator.context.useRadians) {
+            this.console.log(`Already in ${angleModeName} mode`);
+        }
+        else {
+            this.console.log(`Switched to ${angleModeName}`);
+            this.evaluator.context.useRadians = useRadians;
         }
     }
 }
