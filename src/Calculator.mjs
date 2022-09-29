@@ -16,6 +16,7 @@ Commands:
  exit       Exit the program
  help       Show this menu
  morehelp   Show detailed documentation on all functions
+ ang        Display current angle mode
  rad        Switch to radians
  deg        Switch to degrees
 
@@ -68,6 +69,9 @@ export class Calculator {
             this.console.log(calculatorHelpMessage)
         }, 'morehelp' : () => {
             this.console.log(calculatorMoreHelpMessage)
+        }, 'ang' : () => {
+            var angleModeName = this.evaluator.context.useRadians ? 'radians' : 'degrees';
+            this.console.log(`Current angle mode is ${angleModeName}`);
         }, 'rad' : () => {
             this.switchAngleMode(true);
         }, 'deg' : () => {     
