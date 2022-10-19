@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# get path of this script (code from https://stackoverflow.com/a/6255065)
+current_dir=$(pwd)
+script_dir=$(dirname $0)
+
+if [ $script_dir = '.' ]
+then
+script_dir="$current_dir"
+fi
+
+# run the main file
+node "$script_dir/../src/main.mjs"
