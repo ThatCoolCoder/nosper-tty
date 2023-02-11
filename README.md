@@ -6,4 +6,6 @@ Terminal calculator powered by Nosper Engine.
 
 Node.js needs to be installed as `node`.
 
-Download/clone the git repo then add `path/to/nosper-tty/bin/` to your PATH environment variable.
+1. Download/clone the git repo (remember to use `--recurse-submodules` flag)
+2. Navigate to the directory containing the repo and run `npm install` to get dependencies
+3. Add `path/to/nosper-tty/bin/` to your PATH environment variable.
