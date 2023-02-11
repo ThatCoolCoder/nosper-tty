@@ -1,4 +1,5 @@
 import { Evaluator } from './lib/nosper-engine/src/Evaluator.mjs';
+import * as EvaluatorErrors from './lib/nosper-engine/src/Errors.mjs';
 
 // Messages of class so indent doesn't get in the way
 const calculatorWelcomeMessage = `
@@ -21,7 +22,7 @@ const operatorsHelpText =
 `Basic operators: 
 Addition:          +
 Subtraction:       -
-Multiplication:    *
+Multiplication:    * or x
 Division:          /
 Exponentiation:    ** or ^`
 
@@ -57,7 +58,12 @@ Whitespace is largely optional and some functions have abbreviations:
  sin15      Same as sin(15)
  q2         Same as sqrt 2
 
-Multiple expressions can be put on one line by separating them with semicolons:
+Multiplication signs can be ommitted in many situations:
+ 10 (8 + 2)             = 100
+ (1 + 2)(2 + 3)         = 15
+ &fourth_root(16)2$pi   = 12.566...
+
+Multiple expressions can be put on one line by separating them with semicolons (the value of the last expression is the one returned):
  3 * 3; 4 * 4       = 16
  $x = 3; $x^2       = 9
 
@@ -153,13 +159,13 @@ export class Calculator {
                     this.console.log(this.evaluator.evaluate(input).toString());
                 }
                 catch (err) {
-                    if (err instanceof Evaluator.MathSyntaxError) {
-                        var error = 'Syntax error in expression';
+                    if (err instanceof EvaluatorErrors.EvaluationError) {
+                        var errorMessage = err.message;
                     }
                     else {
-                        var error = 'Error evaluating expression';
+                        var errorMessage = 'Unknown error evaluating expression';
                     }
-                    this.console.log(error);
+                    this.console.log(errorMessage);
                 }
             }
         }
