@@ -11,20 +11,20 @@ Type "exit" to exit, "help" for help, or "morehelp" for in-depth documentation.
 
 const commandsHelpText = 
 `Commands:
-exit       Exit the program
-help       Show this menu
-morehelp   Show detailed documentation on all functions
-ang        Display current angle mode
-rad        Switch to radians
-deg        Switch to degrees`
+ exit       Exit the program
+ help       Show this menu
+ morehelp   Show detailed documentation on all functions
+ ang        Display current angle mode
+ rad        Switch to radians
+ deg        Switch to degrees`
 
 const operatorsHelpText = 
 `Basic operators: 
-Addition:          +
-Subtraction:       -
-Multiplication:    * or x
-Division:          /
-Exponentiation:    ** or ^`
+ Addition:          +
+ Subtraction:       -
+ Multiplication:    * or x
+ Division:          /
+ Exponentiation:    ** or ^`
 
 const calculatorHelpMessage = `
 Basic usage
