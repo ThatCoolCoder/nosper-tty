@@ -11,20 +11,20 @@ Type "exit" to exit, "help" for help, or "morehelp" for in-depth documentation.
 
 const commandsHelpText = 
 `Commands:
-exit       Exit the program
-help       Show this menu
-morehelp   Show detailed documentation on all functions
-ang        Display current angle mode
-rad        Switch to radians
-deg        Switch to degrees`
+ exit       Exit the program
+ help       Show this menu
+ morehelp   Show detailed documentation on all functions
+ ang        Display current angle mode
+ rad        Switch to radians
+ deg        Switch to degrees`
 
 const operatorsHelpText = 
 `Basic operators: 
-Addition:          +
-Subtraction:       -
-Multiplication:    * or x
-Division:          /
-Exponentiation:    ** or ^`
+ Addition:          +
+ Subtraction:       -
+ Multiplication:    * or x
+ Division:          /
+ Exponentiation:    ** or ^`
 
 const calculatorHelpMessage = `
 Basic usage
@@ -77,6 +77,15 @@ ${commandsHelpText}
 
 ${operatorsHelpText}
 
+Input:
+ Type an expression and press enter.
+
+ Multiple expressions:
+  Multiple expressions can be put on one line by separating them with semicolons
+  The value of the last expression is the one returned.
+  For example:
+   3 * 3; 4 * 4       = 16
+
 Memory:
  Variables:
   Variables are referred to by putting a dollar sign in front of their name
@@ -89,6 +98,13 @@ Memory:
    For example, the first argument is $0 and the second is $1
   Call a function like so: &calc_area(45, 10)
    Pass arguments into the function by putting them inside brackets, separated by commas
+
+ Previous answer:
+  Type "ans" to read the previous answer. It can be used anywhere a variable or number could be written.
+  Note that if you enter multiple expressions separated by a semicolon, ans is only updated at the end of the set of expressions.
+  For example, if you entered the following expression groups one after each other, the final result would be
+   5 + 5            = 10
+   2 + 2; ans + 1   = 11 (not 4)
 
 Inbuilt constants (predefined variables):
  Pi                     $pi     3.141...
