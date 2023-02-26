@@ -11,3 +11,10 @@ Node.js needs to be installed as `node`.
 3. Add `path/to/nosper-tty/bin/` to your PATH environment variable.
 
 The calculator can then be run as `nosper-tty`.
+
+
+## Non-interactive usage
+
+If an argument is provided when running the calculator, it will be evaluated and echoed to the console.
+
+Otherwise the calculator enters interactive mode.
