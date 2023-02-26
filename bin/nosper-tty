@@ -9,5 +9,5 @@ then
 script_dir="$current_dir"
 fi
 
-# run the main file
-node "$script_dir/../src/main.mjs"
+# run the main file, passing argument
+node "$script_dir/../src/main.mjs" $1

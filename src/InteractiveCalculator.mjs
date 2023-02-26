@@ -1,10 +1,9 @@
 import { Evaluator } from './lib/nosper-engine/src/Evaluator.mjs';
 import * as EvaluatorErrors from './lib/nosper-engine/src/Errors.mjs';
 
-// Messages of class so indent doesn't get in the way
-const calculatorWelcomeMessage = `
-Nosper TTY
-Open source terminal-based calculator.
+// Messages not in class so indent doesn't get in the way
+const calculatorWelcomeMessage = 
+`Nosper TTY - Open source terminal-based calculator.
 
 Type "exit" to exit, "help" for help, or "morehelp" for in-depth documentation.
 `;
@@ -134,7 +133,7 @@ Inbuilt functions (shown with example inputs):
   Round up                  ceil 4.55
 `
 
-export class Calculator {
+export class InteractiveCalculator {
     running = false;
     prompt = '> ';
     commands = {

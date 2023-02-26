@@ -1,12 +1,11 @@
 import 'node:process';
-import { exit } from 'node:process';
 import readlineSync from 'readline-sync';
-import { Calculator } from './Calculator.mjs';
+import { InteractiveCalculator } from './InteractiveCalculator.mjs';
 import { Evaluator } from './lib/nosper-engine/src/Evaluator.mjs';
 import * as EvaluatorErrors from './lib/nosper-engine/src/Errors.mjs';
 
 if (process.argv.length > 2)
-{
+{   
     // Run in batch mode
     var equation = process.argv[2];
 
@@ -33,5 +32,5 @@ if (process.argv.length > 2)
 else
 {
     // Run interactive mode
-    new Calculator(console, readlineSync.question).mainLoop();
+    new InteractiveCalculator(console, readlineSync.question).mainLoop();
 }
