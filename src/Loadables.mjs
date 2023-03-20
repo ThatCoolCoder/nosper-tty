@@ -49,10 +49,23 @@ export const loadables = {
     phys : new CustomLoadable('Physics utilities', {
         'g' : ['Force of gravity on earth', 9.81],
         'G' : ['Universal gravitatonal constant', 6.6743e-11],
+        'c' : ['Speed of light (in metres per second)', 299792458]
     }, {
-        'grav' : ['Force of gravity (distance, m1, m2)', '$G * ($1 * $2) / $0^2'],
-        'earthrange' : ['Range of thrown object on earth (speed in m/s, angle)', '$0 $0 sin(2$1) / $g'],
-        'range' : ['Range of thrown object (speed in m/s, angle, gravity)', '$0 $0 sin(2$1) / $2'],
-        'weight' : ['Weight of object on earth (object mass)',  '$g $0']
+        'grav' : ['Force of gravity (distance, m1, m2)', '$G $1 $2 / $0^2'],
+        'earthrange' : ['Range of thrown object on earth (speed in m/s, angle)', '$0^2 sin(2$1) / $g'],
+        'range' : ['Range of thrown object (speed in m/s, angle, gravity)', '$0^2 sin(2$1) / $2'],
+        'weight' : ['Weight of object on earth (object mass)',  '$g $0'],
+        'acceldist' : ['Distance moved by an accelerating object (V0, a, t)', '$0 $2 + 0.5 $1 $2^2']
+    }),
+    geom : new CustomLoadable('Geometry - Euclidean', {
+
+    }, {
+        'circlearea' : ['Area of a circle (radius)', '$pi $0^2'],
+        'circlearead' : ['Area of a circle from a diameter (diameter)', '$pi ($0/2)^2']
+    }),
+    misc : new CustomLoadable('Miscellaneous stuff', {
+
+    }, {
+        'roundto' : ['Round a number to n places (number, places)', 'round($0 10^$1)/10^$1'],
     })
 };

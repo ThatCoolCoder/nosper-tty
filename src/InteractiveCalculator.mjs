@@ -21,7 +21,7 @@ const commandsHelpText =
  load <set>     Load a set of variables and functions (use listload to see available sets)
  unload <set>   Unload a previously loaded set
  listload       List loadable items
- loadinfo       Show all info of a specific loadable`
+ loadinfo <set> List data contained within a loadable`
 
 const operatorsHelpText = 
 `Basic operators: 
@@ -109,7 +109,7 @@ Memory:
   Note that if you enter multiple expressions separated by a semicolon, ans is only updated at the end of the set of expressions.
   For example, if you entered the following expression groups one after each other, the final result would be
    5 + 5            = 10
-   2 + 2; ans + 1   = 11 (not 4)
+   2 + 2; ans + 2   = 12 (not 6)
 
 Inbuilt constants (predefined variables):
  Pi                     $pi     3.141...
@@ -137,7 +137,7 @@ Inbuilt functions (shown with example inputs):
   Round value either way    round 0.64
   Round down                floor 0.77
   Round up                  ceil 4.55
-`
+`;
 
 export class InteractiveCalculator {
     running = false;
@@ -171,7 +171,7 @@ export class InteractiveCalculator {
         }, 'listload' : () => {
             var formatted = Object.keys(loadables).map(k => {
                 return `- ${k} (${loadables[k].description})`;
-            });
+            }).join('\n');
             this.console.log(`Loadables:\n${formatted}`);
         }, 'loadinfo' : (args) => {
             if (args.length != 1) this.console.log('Expected the name of a set to be provided');
@@ -243,6 +243,7 @@ export class InteractiveCalculator {
         }
         else {
             this.console.log(`Loadable ${loadableName} does not exist`);
+            return false;
         }
     }
 }
