@@ -53,6 +53,6 @@ export const loadables = {
         'grav' : ['Force of gravity (distance, m1, m2)', '$G * ($1 * $2) / $0^2'],
         'earthrange' : ['Range of thrown object on earth (speed in m/s, angle)', '$0 $0 sin(2$1) / $g'],
         'range' : ['Range of thrown object (speed in m/s, angle, gravity)', '$0 $0 sin(2$1) / $2'],
-        'weight' : ['Weight of object on earth (object mass)', '&g $0']
+        'weight' : ['Weight of object on earth (object mass)',  '$g $0']
     })
 };
