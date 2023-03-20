@@ -1,6 +1,8 @@
 import { Evaluator } from './lib/nosper-engine/src/Evaluator.mjs';
 import * as EvaluatorErrors from './lib/nosper-engine/src/Errors.mjs';
 
+import { loadables } from './Loadables.mjs';
+
 // Messages not in class so indent doesn't get in the way
 const calculatorWelcomeMessage = 
 `Nosper TTY - Open source terminal-based calculator.
@@ -10,12 +12,16 @@ Type "exit" to exit, "help" for help, or "morehelp" for in-depth documentation.
 
 const commandsHelpText = 
 `Commands:
- exit       Exit the program
- help       Show this menu
- morehelp   Show detailed documentation on all functions
- ang        Display current angle mode
- rad        Switch to radians
- deg        Switch to degrees`
+ exit           Exit the program
+ help           Show this menu
+ morehelp       Show detailed documentation on all functions
+ ang            Display current angle mode
+ rad            Switch to radians
+ deg            Switch to degrees
+ load <set>     Load a set of variables and functions (use listload to see available sets)
+ unload <set>   Unload a previously loaded set
+ listload       List loadable items
+ loadinfo       Show all info of a specific loadable`
 
 const operatorsHelpText = 
 `Basic operators: 
@@ -150,6 +156,38 @@ export class InteractiveCalculator {
             this.switchAngleMode(true);
         }, 'deg' : () => {     
             this.switchAngleMode(false);
+        }, 'load' : (args) => {
+            if (args.length != 1) this.console.log('Expected the name of a set to be provided');
+            if (this.checkLoadableExists(args[0])) {
+                this.evaluator.load(loadables[args[0]]);
+                this.console.log(`Loaded ${args[0]}`);
+            }
+        }, 'unload' : (args) => {
+            if (args.length != 1) this.console.log('Expected the name of a set to be provided');
+            if (this.checkLoadableExists(args[0])) {
+                this.evaluator.unload(loadables[args[0]]);
+                this.console.log(`Unloaded ${args[0]}`);
+            }
+        }, 'listload' : () => {
+            var formatted = Object.keys(loadables).map(k => {
+                return `- ${k} (${loadables[k].description})`;
+            });
+            this.console.log(`Loadables:\n${formatted}`);
+        }, 'loadinfo' : (args) => {
+            if (args.length != 1) this.console.log('Expected the name of a set to be provided');
+            if (this.checkLoadableExists(args[0])) {
+                var loadable = loadables[args[0]];
+                
+                this.console.log(`Variables in ${args[0]}`);
+                this.console.log(loadable.variables.listData().map(k => {
+                    return `- $${k} (${loadable.variables.get(k)}): ${loadable.variableIndex[k]}`;
+                }).join('\n'));
+
+                this.console.log(`\nFunctions in ${args[0]}`);
+                this.console.log(loadable.functions.listData().map(k => {
+                    return `- &${k}: ${loadable.functionIndex[k]}`;
+                }).join('\n'));
+            }
         }
     };
     
@@ -166,8 +204,10 @@ export class InteractiveCalculator {
 
         while (this.running) {
             var input = this.readline(this.prompt).trim();
-            if (Object.keys(this.commands).includes(input)) {
-                this.commands[input]();
+            var potentialCommand = input.split(' ')[0]
+            if (Object.keys(this.commands).includes(potentialCommand)) {
+                var remaining = input.split(' ').slice(1);
+                this.commands[potentialCommand](remaining);
             }
             else {
                 try {
@@ -194,6 +234,15 @@ export class InteractiveCalculator {
         else {
             this.console.log(`Switched to ${angleModeName}`);
             this.evaluator.context.useRadians = useRadians;
+        }
+    }
+
+    checkLoadableExists(loadableName) {
+        if (Object.keys(loadables).includes(loadableName)) {
+            return true;
+        }
+        else {
+            this.console.log(`Loadable ${loadableName} does not exist`);
         }
     }
 }
