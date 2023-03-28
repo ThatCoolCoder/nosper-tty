@@ -6,7 +6,7 @@ export class AbstractDisplayMode {
 
 export class NormalDisplayMode {
     formatNumber(number) {
-        return number.toFixed();
+        return number.toString();
     }
 }
 
