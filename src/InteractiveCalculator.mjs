@@ -2,6 +2,7 @@ import { Evaluator } from './lib/nosper-engine/src/Evaluator.mjs';
 import * as EvaluatorErrors from './lib/nosper-engine/src/Errors.mjs';
 
 import { loadables } from './Loadables.mjs';
+import { NormalDisplayMode, ScientificDisplayMode } from './DisplayMode.mjs';
 
 // Messages not in class so indent doesn't get in the way
 const calculatorWelcomeMessage = 
@@ -12,16 +13,18 @@ Type "exit" to exit, "help" for help, or "morehelp" for in-depth documentation.
 
 const commandsHelpText = 
 `Commands:
- exit           Exit the program
- help           Show this menu
- morehelp       Show detailed documentation on all functions
- ang            Display current angle mode
- rad            Switch to radians
- deg            Switch to degrees
- load <set>     Load a set of variables and functions (use listload to see available sets)
- unload <set>   Unload a previously loaded set
- listload       List loadable items
- loadinfo <set> List data contained within a loadable`
+ exit               Exit the program
+ help               Show this menu
+ morehelp           Show detailed documentation on all functions
+ ang                Display current angle mode
+ rad                Switch to radians
+ deg                Switch to degrees
+ load <set>         Load a set of variables and functions (use listload to see available sets)
+ unload <set>       Unload a previously loaded set
+ listload           List loadable items
+ loadinfo <set>     List data contained within a loadable
+ dispnorm           Set display mode to normal
+ dispsci <ndigits>  Set display mode to scientific with N digits after the decimal place`
 
 const operatorsHelpText = 
 `Basic operators: 
@@ -188,6 +191,19 @@ export class InteractiveCalculator {
                     return `- &${k}: ${loadable.functionIndex[k]}`;
                 }).join('\n'));
             }
+        }, 'dispnorm' : () => {
+            this.displayMode = new NormalDisplayMode();
+            this.console.log('Set display mode to normal');
+        }, 'dispsci' : (args) => {
+            var numDigits = NaN;
+            if (args.length >= 1) {
+                numDigits = parseFloat(args[0]);
+            }
+            if (isNaN(numDigits)) {
+                numDigits = 2;
+            }
+            this.displayMode = new ScientificDisplayMode(numDigits);
+            this.console.log(`Set display mode to scientific (${numDigits} digits)`)
         }
     };
     
@@ -195,6 +211,7 @@ export class InteractiveCalculator {
         this.console = _console;
         this.readline = readlineFunc;
         this.evaluator = evaluator ?? new Evaluator();
+        this.displayMode = new NormalDisplayMode();
     }
     
     mainLoop() {
@@ -211,7 +228,8 @@ export class InteractiveCalculator {
             }
             else {
                 try {
-                    this.console.log(this.evaluator.evaluate(input).toString());
+                    var result = this.evaluator.evaluate(input);
+                    this.console.log(this.displayMode.formatNumber(result));
                 }
                 catch (err) {
                     if (err instanceof EvaluatorErrors.EvaluationError) {
