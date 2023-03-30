@@ -181,12 +181,15 @@ export class InteractiveCalculator {
             if (this.checkLoadableExists(args[0])) {
                 var loadable = loadables[args[0]];
                 
-                this.console.log(`Variables in ${args[0]}`);
+                this.console.log(`${args[0]} - ${loadable.description}`);
+                this.console.log(`${loadable.longDescription}`);
+
+                this.console.log(`Variables`);
                 this.console.log(loadable.variables.listData().map(k => {
                     return `- $${k} (${loadable.variables.get(k)}): ${loadable.variableIndex[k]}`;
                 }).join('\n'));
 
-                this.console.log(`\nFunctions in ${args[0]}`);
+                this.console.log(`\nFunctions`);
                 this.console.log(loadable.functions.listData().map(k => {
                     return `- &${k}: ${loadable.functionIndex[k]}`;
                 }).join('\n'));
@@ -200,7 +203,7 @@ export class InteractiveCalculator {
                 numDigits = parseFloat(args[0]);
             }
             if (isNaN(numDigits)) {
-                numDigits = 2;
+                numDigits = 4;
             }
             this.displayMode = new ScientificDisplayMode(numDigits);
             this.console.log(`Set display mode to scientific (${numDigits} digits)`)
