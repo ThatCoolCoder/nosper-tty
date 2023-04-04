@@ -78,29 +78,48 @@ export const loadables = {
             'roundto' : ['Round a number to n places (number, places)', 'round($0 10^$1)/10^$1'],
         }),
     unit : new CustomLoadable('Units of measurement', 
-        'Variables defining ratios to the SI units of measurement, that can be used like "3 $in". Use',
+        'Variables defining ratios to the SI units of measurement, that can be used like "3 $in"',
         {
+            // Please order things from small to big
+
             // Distance
-            'km' : ['', 1000],
-            'm' : ['', 1],
-            'dm' : ['', 0.1],
-            'cm' : ['', 0.01],
-            'mm' : ['', 0.001],
+            'nm' : ['', 1e-9],
             'um' : ['', 1e-6],
+            'mm' : ['', 1e-3],
+            'cm' : ['', 0.01],
+            'dm' : ['', 0.1],
+            'm' : ['', 1],
+            'km' : ['', 1000],
 
             'in' : ['', 0.0254],
-            'ft' : ['', 0.0254],
-            'mile' : ['', 0.0254],
-
+            'ft' : ['', 0.3048],
+            'mile' : ['', 1609.34],
+            
             // Area
-            'km2' : ['', 1000 * 1000],
+            'nm2' : ['', 1e-9 ** 2],
+            'um2' : ['', 1e-6 ** 2],
+            'mm2' : ['', 1e-3 ** 2],
+            'dm2' : ['', 0.1 ** 2],
+            'cm2' : ['', 0.01 ** 2],
             'm2' : ['', 1],
-            'dm2' : ['', 0.1 * 0.1],
-            'cm2' : ['', 0.01 * 0.01],
-            'mm2' : ['', 0.001 * 0.001],
-            'um2' : ['', 1e-6 * 1e-6]
+            'km2' : ['', 1000 ** 2],
+
+            'in2' : ['', 0.0254 ** 2],
+            'ft2' : ['', 0.3048 ** 2],
+            'mile2' : ['', 1609.34 ** 2],
 
             // Volume - cubic
+            'nm3' : ['', 1e-9 ** 3],
+            'um3' : ['', 1e-6 ** 3],
+            'mm3' : ['', 1e-3 ** 3],
+            'dm3' : ['', 0.1 ** 3],
+            'cm3' : ['', 0.01 ** 3],
+            'm3' : ['', 1],
+            'km3' : ['', 1000 ** 3],
+
+            'in3' : ['', 0.0254 ** 3],
+            'ft3' : ['', 0.3048 ** 3],
+            'mile3' : ['', 1609.34 ** 3],
 
             // Volume - not cubic
         },
