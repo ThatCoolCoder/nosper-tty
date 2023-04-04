@@ -46,84 +46,90 @@ export class CustomLoadable extends Loadable {
     }
 }
 
-export const loadables = {
-    phys : new CustomLoadable('Physics utilities',
-        'Works niecely with the "unit" loadable',
-        {
-            'g' : ['Force of gravity on earth', 9.81],
-            'G' : ['Universal gravitatonal constant', 6.6743e-11],
-            'c' : ['Speed of light (in metres per second)', 299792458]
-        },
-        {
-            'grav' : ['Force of gravity (distance, m1, m2)', '$G $1 $2 / $0^2'],
-            'earthrange' : ['Range of thrown object on earth (speed in m/s, angle)', '$0^2 sin(2$1) / $g'],
-            'range' : ['Range of thrown object (speed in m/s, angle, gravity)', '$0^2 sin(2$1) / $2'],
-            'weight' : ['Weight of object on earth (object mass)',  '$g $0'],
-            'acceldist' : ['Distance moved by an accelerating object (V0, a, t)', '$0 $2 + 0.5 $1 $2^2']
-        }),
-    geom : new CustomLoadable('Geometry - Euclidean', 
-        'Does not do much because there is no engine support for vector/coordinate types ',
-        {
+export const loadables = {};
 
-        },
-        {
-            'circlearea' : ['Area of a circle (radius)', '$pi $0^2'],
-            'circlearead' : ['Area of a circle from a diameter (diameter)', '$pi ($0/2)^2']
-        }),
-    misc : new CustomLoadable('Miscellaneous stuff', '',
-        {
+loadables.phys = new CustomLoadable(
+    'Physics utilities',
+    'Works niecely with the "unit" loadable',
+    {
+        'g' : ['Force of gravity on earth', 9.81],
+        'G' : ['Universal gravitatonal constant', 6.6743e-11],
+        'c' : ['Speed of light (in metres per second)', 299792458]
+    },
+    {
+        'grav' : ['Force of gravity (distance, m1, m2)', '$G $1 $2 / $0^2'],
+        'earthrange' : ['Range of thrown object on earth (speed in m/s, angle)', '$0^2 sin(2$1) / $g'],
+        'range' : ['Range of thrown object (speed in m/s, angle, gravity)', '$0^2 sin(2$1) / $2'],
+        'weight' : ['Weight of object on earth (object mass)',  '$g $0'],
+        'acceldist' : ['Distance moved by an accelerating object (V0, a, t)', '$0 $2 + 0.5 $1 $2^2']
+    });
 
-        },
-        {
-            'roundto' : ['Round a number to n places (number, places)', 'round($0 10^$1)/10^$1'],
-        }),
-    unit : new CustomLoadable('Units of measurement', 
-        'Variables defining ratios to the SI units of measurement, that can be used like "3 $in"',
-        {
-            // Please order things from small to big
+loadables.geom = new CustomLoadable(
+    'Geometry - Euclidean', 
+    'Does not do much because there is no engine support for vector/coordinate types ',
+    {
 
-            // Distance
-            'nm' : ['', 1e-9],
-            'um' : ['', 1e-6],
-            'mm' : ['', 1e-3],
-            'cm' : ['', 0.01],
-            'dm' : ['', 0.1],
-            'm' : ['', 1],
-            'km' : ['', 1000],
+    },
+    {
+        'circlearea' : ['Area of a circle (radius)', '$pi $0^2'],
+        'circlearead' : ['Area of a circle from a diameter (diameter)', '$pi ($0/2)^2']
+    });
 
-            'in' : ['', 0.0254],
-            'ft' : ['', 0.3048],
-            'mile' : ['', 1609.34],
-            
-            // Area
-            'nm2' : ['', 1e-9 ** 2],
-            'um2' : ['', 1e-6 ** 2],
-            'mm2' : ['', 1e-3 ** 2],
-            'dm2' : ['', 0.1 ** 2],
-            'cm2' : ['', 0.01 ** 2],
-            'm2' : ['', 1],
-            'km2' : ['', 1000 ** 2],
+loadables.misc = new CustomLoadable(
+    'Miscellaneous stuff',
+    'Currently a single function that, needs expansion',
+    {
 
-            'in2' : ['', 0.0254 ** 2],
-            'ft2' : ['', 0.3048 ** 2],
-            'mile2' : ['', 1609.34 ** 2],
+    },
+    {
+        'roundto' : ['Round a number to n places (number, places)', 'round($0 10^$1)/10^$1'],
+    });
 
-            // Volume - cubic
-            'nm3' : ['', 1e-9 ** 3],
-            'um3' : ['', 1e-6 ** 3],
-            'mm3' : ['', 1e-3 ** 3],
-            'dm3' : ['', 0.1 ** 3],
-            'cm3' : ['', 0.01 ** 3],
-            'm3' : ['', 1],
-            'km3' : ['', 1000 ** 3],
+// Construct unit loadable
+// -----------------------
 
-            'in3' : ['', 0.0254 ** 3],
-            'ft3' : ['', 0.3048 ** 3],
-            'mile3' : ['', 1609.34 ** 3],
+// There are lots of units and they're very repetitive so we do not manually code all the vars
 
-            // Volume - not cubic
-        },
-        {
-            'roundto' : ['Round a number to n places (number, places)', 'round($0 10^$1)/10^$1'],
-        })
+var baseLengthUnits = {
+    // Please order things from small to big, but keep metric and archaic separate
+    'nm' : 1e-9,
+    'um' : 1e-6,
+    'mm' : 1e-3,
+    'cm' : 0.01,
+    'dm' : 0.1,
+    'm' : 1,
+    'km' : 1000,
+
+    'in' : 0.0254,
+    'ft' : 0.3048,
+    'mile' : 1609.34,
 };
+
+var unitLoadableVariables = {
+    'ug' : ['', 1e-9],
+    'mg' : ['', 1e-6],
+    'g' : ['', 1e-3],
+    'kg' : ['', 1],
+    't' : ['', 1000],
+
+    'lbf' : ['', 4.44822],
+    'kgf' : ['', 9.80665],
+};
+
+for (var key in baseLengthUnits) {
+    var value = baseLengthUnits[key];
+    // Make base units
+    unitLoadableVariables[key] = ['', value];
+    // Make square units
+    unitLoadableVariables[key + '2'] = ['', value ** 2];
+    // Make cubic units
+    unitLoadableVariables[key + '3'] = ['', value ** 3];
+}
+
+loadables.unit = new CustomLoadable(
+    'Units of measurement', 
+    'Variables defining ratios to the SI units of measurement, that can be used like "3 $in"',
+    unitLoadableVariables,
+    {
+
+    });
