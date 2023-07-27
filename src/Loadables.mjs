@@ -50,7 +50,7 @@ export const loadables = {};
 
 loadables.phys = new CustomLoadable(
     'Physics utilities',
-    'Works niecely with the "unit" loadable',
+    'Works nicely with the "unit" loadable',
     {
         'g' : ['Force of gravity on earth', 9.81],
         'G' : ['Universal gravitatonal constant', 6.6743e-11],
@@ -77,12 +77,26 @@ loadables.geom = new CustomLoadable(
 
 loadables.misc = new CustomLoadable(
     'Miscellaneous stuff',
-    'Currently a single function that, needs expansion',
+    'Currently a single function, needs expansion',
     {
 
     },
     {
         'roundto' : ['Round a number to n places (number, places)', 'round($0 10^$1)/10^$1'],
+    });
+
+loadables.combin = new CustomLoadable(
+    'Combinatorics',
+    'Combinations, permutations, etc',
+    {
+
+    },
+    {
+        // we don't have loops or if statements yet, so this has to use some recursion and arithmetic tricks
+        // It kept complaining about unmatched brackets even when they were fine so we just split it into two functions
+        'fac' : ['Factorial of (n)', '($0 ? &facinner($0)) + 1'],
+        'facinner' : ['Internal function needed for bug workaround', '$0 * &fac($0-1) - 1'],
+        // todo: add permutations and combinations
     });
 
 // Construct unit loadable
