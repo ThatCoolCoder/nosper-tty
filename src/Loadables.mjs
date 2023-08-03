@@ -94,7 +94,10 @@ loadables.combin = new CustomLoadable(
     {
         // we don't have loops or if statements yet, so this has to use some recursion and arithmetic tricks
         'fac' : ['Factorial of (n)', '($0 ? ($0 * &fac($0-1) - 1)) + 1'],
-        // todo: add permutations and combinations
+        'npr' : ['Permutations (number of items, number to choose)', '&fac($0)/&fac($0-$1)'],
+        'perm' : ['Same as npr', '&npr($0, $1)'],
+        'ncr' : ['Combinations (number of items, number to choose)', '&npr($0, $1)/&fac($1)'],
+        'combin' : ['Same as ncr', '&ncr($0, $1)'],
     });
 
 // Construct unit loadable
