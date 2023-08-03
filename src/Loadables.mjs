@@ -93,9 +93,7 @@ loadables.combin = new CustomLoadable(
     },
     {
         // we don't have loops or if statements yet, so this has to use some recursion and arithmetic tricks
-        // It kept complaining about unmatched brackets even when they were fine so we just split it into two functions
-        'fac' : ['Factorial of (n)', '($0 ? &facinner($0)) + 1'],
-        'facinner' : ['Internal function needed for bug workaround', '$0 * &fac($0-1) - 1'],
+        'fac' : ['Factorial of (n)', '($0 ? ($0 * &fac($0-1) - 1)) + 1'],
         // todo: add permutations and combinations
     });
 
