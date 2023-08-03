@@ -52,7 +52,7 @@ loadables.phys = new CustomLoadable(
     'Physics utilities',
     'Works nicely with the "unit" loadable',
     {
-        'g' : ['Force of gravity on earth', 9.81],
+        'grav' : ['Force of gravity on earth', 9.81],
         'G' : ['Universal gravitatonal constant', 6.6743e-11],
         'c' : ['Speed of light (in metres per second)', 299792458]
     },
