@@ -107,38 +107,84 @@ loadables.combin = new CustomLoadable(
 
 var baseLengthUnits = {
     // Please order things from small to big, but keep metric and archaic separate
-    'nm' : 1e-9,
-    'um' : 1e-6,
-    'mm' : 1e-3,
-    'cm' : 0.01,
-    'dm' : 0.1,
-    'm' : 1,
-    'km' : 1000,
+    'nm' : ['Nanometres', 1e-9],
+    'um' : ['Micrometres', 1e-6],
+    'mm' : ['Millimetres', 1e-3],
+    'cm' : ['Centimetres', 0.01],
+    'dm' : ['Decimetres', 0.1],
+    'm' : ['Metres', 1],
+    'km' : ['Kilometres', 1000],
+    'Mm' : ['Megametres', 1e6],
+    'gm' : ['Gigametres', 1e9],
 
-    'in' : 0.0254,
-    'ft' : 0.3048,
-    'mile' : 1609.34,
+    'in' : ['Inches', 0.0254],
+    'ft' : ['Feet', 0.3048],
+    'yd' : ['Yards', 0.9144],
+    'fur' : ['Furlongs', 201.168],
+    'le' : ['Leagues', 4.828032e3],
+    'mile' : ['Miles', 1609.34],
+    'NM' : ['Nautical miles', 1852],
 };
 
 var unitLoadableVariables = {
-    'ug' : ['', 1e-9],
-    'mg' : ['', 1e-6],
-    'g' : ['', 1e-3],
-    'kg' : ['', 1],
-    't' : ['', 1000],
+    // Mass
+    'ng' : ['Nanograms', 1e-12],
+    'ug' : ['Micrograms', 1e-9],
+    'mg' : ['Milligrams', 1e-6],
+    'g' : ['Grams', 1e-3],
+    'kg' : ['Kilograms', 1],
+    't' : ['Metric tonnes', 1e3],
+    'Mg' : ['Megagrams', 1e6],
+    'Mg' : ['Gigabrams', 1e9],
 
-    'lbf' : ['', 4.44822],
-    'kgf' : ['', 9.80665],
+    'oz' : ['Ounces', 0.0283495],
+    'lb' : ['Pounds', 0.453592],
+    'ton' : ['US (short) tons', 907.18],
+
+    // Volume
+    'floz' : ['Fluid ounces', 0.0295735e-3],
+    'qt' : ['Quarts', 0.946353e-3],
+    'gal' : ['US gallons', 3.78541e-3],
+
+    'ul' : ['Microlitres', 1e-9],
+    'ml' : ['Millilitres', 1e-6],
+    'l' : ['Litres', 1e-3],
+    'kl' : ['Kilolitres', 1],
+    'Ml' : ['Megalitres', 1e3],
+    'gl' : ['Gigalitres', 1e6],
+
+    // Force
+    'lbf' : ['Pounds-force', 4.44822],
+    'kgf' : ['Kilograms-force', 9.80665],
+    'N' : ['Newtons', 1],
+
+    // Velocity
+    'ms' : ['Metres per second', 1],
+    'kms' : ['Kilometers per second', 1e3],
+    'kmh' : ['Kilometers per hour', 1/3.6],
+    'mph' : ['Miles per hour', 1/2.23694],
+    'kt' : ['Knots', 1/1.852],
+
+    // Time
+    'ns' : ['Nanoseconds', 1e-9],
+    'us' : ['Microeconds', 1e-6],
+    'ms' : ['Millieconds', 1e-3],
+    's' : ['Seconds', 1],
+    'min' : ['Minutes', 60],
+    'hr' : ['Hours', 60 * 60],
+    'day' : ['Days', 60 * 60 * 24],
+    'yr' : ['Years (averaged over leap years)', 60 * 60 * 24 * 365.2425],
 };
 
 for (var key in baseLengthUnits) {
-    var value = baseLengthUnits[key];
+    var name = baseLengthUnits[key][0];
+    var value = baseLengthUnits[key][1];
     // Make base units
-    unitLoadableVariables[key] = ['', value];
+    unitLoadableVariables[key] = [name, value];
     // Make square units
-    unitLoadableVariables[key + '2'] = ['', value ** 2];
+    unitLoadableVariables[key + '2'] = [name + ' squared', value ** 2];
     // Make cubic units
-    unitLoadableVariables[key + '3'] = ['', value ** 3];
+    unitLoadableVariables[key + '3'] = [name + ' cubed', value ** 3];
 }
 
 loadables.unit = new CustomLoadable(
@@ -146,5 +192,7 @@ loadables.unit = new CustomLoadable(
     'Variables defining ratios to the SI units of measurement, that can be used like "3 $in"',
     unitLoadableVariables,
     {
-
+        'to' : ['Convert from internal units (SI) to a different unit system (value, target unit)', '$0 / $1'],
+        'from' : ['Convert from a unit system to SI internal units (value, source unit)', '$0 * $1'],
+        'convert' : ['Convert  between two unit systems (value, source unit, target unit)', '$0 * $1 / $2']
     });
