@@ -174,6 +174,37 @@ var unitLoadableVariables = {
     'hr' : ['Hours', 60 * 60],
     'day' : ['Days', 60 * 60 * 24],
     'yr' : ['Years (averaged over leap years)', 60 * 60 * 24 * 365.2425],
+
+    // Angle
+    
+    'rd' : ['Radians', 1],
+    'rad' : ['Radians', 1],
+    'rev' : ['Revolutions', Math.PI * 2],
+    'deg' : ['Degrees', 180 / Math.PI],
+    'grad' : ['Gradians', 200 / Math.PI],
+    'gon' : ['Gradians', 200 / Math.PI],
+
+    // Angular velocity
+
+    'rads' : ['Radians per second', 1],
+    'radm' : ['Radians per minute', 1 / 60],
+    'radh' : ['Radians per hour', 1 / 3600],
+
+    'rps' : ['Revolutions per second', Math.PI * 2],
+    'rpm' : ['Revolutions per minute', Math.PI * 2 / 60],
+    'rph' : ['Revolutions per hour', Math.PI * 2 / 3600],
+
+    'degs' : ['Degrees per second', 180 / Math.PI],
+    'degm' : ['Degrees per minute', 180 / Math.PI / 60],
+    'degh' : ['Degrees per hour', 180 / Math.PI / 3600],
+
+    'grads' : ['Gradians per second', 200 / Math.PI],
+    'gradm' : ['Gradians per minute', 200 / Math.PI / 60],
+    'gradh' : ['Gradians per hour', 200 / Math.PI / 3600],
+
+    'gons' : ['Gradians per second', 200 / Math.PI],
+    'gonm' : ['Gradians per minute', 200 / Math.PI / 60],
+    'gonh' : ['Gradians per hour', 200 / Math.PI / 3600],
 };
 
 for (var key in baseLengthUnits) {
