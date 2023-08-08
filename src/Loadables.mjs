@@ -103,7 +103,7 @@ loadables.combin = new CustomLoadable(
 // Construct unit loadable
 // -----------------------
 
-// There are lots of units and they're very repetitive so we do not manually code all the vars
+// There are lots of length units and they're very repetitive so we do not manually code all the vars
 
 var baseLengthUnits = {
     // Please order things from small to big, but keep metric and archaic separate
@@ -158,11 +158,18 @@ var unitLoadableVariables = {
     'kgf' : ['Kilograms-force', 9.80665],
     'N' : ['Newtons', 1],
 
+    // Extra length units that would be ridiculous to have squared and cubed versions
+
+    'ls' : ['Light seconds', 299792458],
+    'ly' : ['Light years', 9.4607e15],
+
     // Velocity
-    'ms' : ['Metres per second', 1],
+    'mps' : ['Metres per second', 1],
+    'm_s' : ['Metres per second', 1],
     'kms' : ['Kilometers per second', 1e3],
     'kmh' : ['Kilometers per hour', 1/3.6],
     'mph' : ['Miles per hour', 1/2.23694],
+    'fps' : ['Feet per second', 1/0.3048],
     'kt' : ['Knots', 1/1.852],
 
     // Time
@@ -175,14 +182,22 @@ var unitLoadableVariables = {
     'day' : ['Days', 60 * 60 * 24],
     'yr' : ['Years (averaged over leap years)', 60 * 60 * 24 * 365.2425],
 
+    // Frequency
+
+    'hz' : ['Hertz', 1],
+
     // Angle
     
     'rd' : ['Radians', 1],
     'rad' : ['Radians', 1],
     'rev' : ['Revolutions', Math.PI * 2],
-    'deg' : ['Degrees', 180 / Math.PI],
-    'grad' : ['Gradians', 200 / Math.PI],
-    'gon' : ['Gradians', 200 / Math.PI],
+    'deg' : ['Degrees', Math.PI / 180],
+    'amin' : ['Arc-minutes', Math.PI / 180 / 60],
+    'arcmin' : ['Arc-minutes', Math.PI / 180 / 60],
+    'asec' : ['Arc-seconds', Math.PI / 180 / 3600],
+    'arcsec' : ['Arc-seconds', Math.PI / 180 / 3600],
+    'grad' : ['Gradians', Math.PI / 200],
+    'gon' : ['Gradians', Math.PI / 200],
 
     // Angular velocity
 
