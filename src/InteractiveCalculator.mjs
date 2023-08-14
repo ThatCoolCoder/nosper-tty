@@ -26,21 +26,18 @@ const commandsHelpText =
  dispnorm           Set display mode to normal
  dispsci <ndigits>  Set display mode to scientific with N digits after the decimal place`
 
-const operatorsHelpText = 
-`Basic operators: 
- Addition:          +
- Subtraction:       -
- Multiplication:    * or x
- Division:          /
- Exponentiation:    ** or ^`
-
 const calculatorHelpMessage = `
 Basic usage
 -----------
 
 ${commandsHelpText}
 
-${operatorsHelpText}
+Basic operators: 
+ Addition:              +
+ Subtraction/negation:  -
+ Multiplication:        * or x
+ Division:              /
+ Exponentiation:        ** or ^
 
 The calculator respects order of operations and brackets
 
@@ -69,7 +66,7 @@ Whitespace is largely optional and some functions have abbreviations:
 Multiplication signs can be ommitted in many situations:
  10 (8 + 2)             = 100
  (1 + 2)(2 + 3)         = 15
- &fourth_root(16)2$pi   = 12.566...
+ sqrt(16)2$pi   = 39.985...
 
 Multiple expressions can be put on one line by separating them with semicolons (the value of the last expression is the one returned):
  3 * 3; 4 * 4       = 16
@@ -83,7 +80,17 @@ Detailed documentation
 
 ${commandsHelpText}
 
-${operatorsHelpText}
+Operators: 
+ Addition:                  +
+ Subtraction/negation:      -
+ Multiplication:            * or x
+ Division:                  /
+ Division - low precedence  //      (evaluated with same precedence as addition;
+                                     useful for constructing fractions)
+ Modulo:                    %
+ Exponentiation:            ** or ^
+ If                         ?       (if the left hand value > 0, it evaluates to the right hand value. Else 0)
+ Not if                     !?      (like if but evaluates to RHS when LHS equals 0)
 
 Input:
  Type an expression and press enter.
@@ -110,7 +117,7 @@ Memory:
  Previous answer:
   Type "ans" to read the previous answer. It can be used anywhere a variable or number could be written.
   Note that if you enter multiple expressions separated by a semicolon, ans is only updated at the end of the set of expressions.
-  For example, if you entered the following expression groups one after each other, the final result would be
+  For example, if you entered the following expression groups one after each other, the results would be
    5 + 5            = 10
    2 + 2; ans + 2   = 12 (not 6)
 
