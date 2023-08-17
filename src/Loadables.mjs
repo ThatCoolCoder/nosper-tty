@@ -184,9 +184,16 @@ var unitLoadableVariables = {
 
     // Frequency
 
+    'nhz' : ['Nanohertz', 1e-9],
+    'uhz' : ['Microhertz', 1e-6],
+    'mhz' : ['Megahertz', 1e-3],
     'hz' : ['Hertz', 1],
+    'hkz' : ['Kilohertz', 1e3],
+    'Mhz' : ['Megahertz', 1e6],
+    'ghz' : ['Gigahertz', 1e9],
+    'thz' : ['Terahertz', 1e12],
 
-    // Angle
+    // Angle (note: these expect the calculator to be in radians mode)
     
     'rd' : ['Radians', 1],
     'rad' : ['Radians', 1],
