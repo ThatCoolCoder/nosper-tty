@@ -54,7 +54,8 @@ loadables.phys = new CustomLoadable(
     {
         'grav' : ['Force of gravity on earth', 9.81],
         'G' : ['Universal gravitatonal constant', 6.6743e-11],
-        'c' : ['Speed of light (in metres per second)', 299792458]
+        'c' : ['Speed of light (in metres per second)', 299792458],
+        'elec' : ['Change of an electron (in coloumbs)', 1.60217663e-19]
     },
     {
         'grav' : ['Force of gravity (distance, m1, m2)', '$G $1 $2 / $0^2'],
@@ -227,6 +228,23 @@ var unitLoadableVariables = {
     'gons' : ['Gradians per second', 200 / Math.PI],
     'gonm' : ['Gradians per minute', 200 / Math.PI / 60],
     'gonh' : ['Gradians per hour', 200 / Math.PI / 3600],
+
+    // Electricity
+    'nA' : ['Nanoamps', 1e-9],
+    'uA' : ['Microamps', 1e-6],
+    'mA' : ['Milliamps', 1e-3],
+    'A' : ['Amps', 1],
+    'kA' : ['Kiloamps', 1e3],
+    'MA' : ['Megaamps', 1e6],
+    'gA' : ['Gigaamps', 1e9],
+
+    'ncol' : ['Millicoloumbs', 1e-9],
+    'ucol' : ['Microcoloumbs', 1e-6],
+    'mcol' : ['Millicoloumbs', 1e-3],
+    'col' : ['Coloumbs', 1],
+    'kcol' : ['Kilocoloumbs', 1e3],
+    'Mcol' : ['Megacoloumbs', 1e6],
+    'Gcol' : ['Gigacoloumbs', 1e9],
 };
 
 for (var key in baseLengthUnits) {
