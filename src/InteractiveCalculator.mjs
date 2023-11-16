@@ -76,9 +76,10 @@ export class InteractiveCalculator {
         }
     };
     
-    constructor(input, output, history=[], evaluator=null) {
+    constructor(input, output, onExit, history=[], evaluator=null) {
         this.input = input;
         this.output = output;
+        this.onExit = onExit;
         this.evaluator = evaluator ?? new Evaluator();
         this.displayMode = new NormalDisplayMode();
 
@@ -116,7 +117,7 @@ export class InteractiveCalculator {
             else {
                 try {
                     var result = this.evaluator.evaluate(input);
-                    this.output.write(this.displayMode.formatNumber(result));
+                    this.write(this.displayMode.formatNumber(result));
                 }
                 catch (err) {
                     if (err instanceof EvaluatorErrors.EvaluationError) {
@@ -125,12 +126,17 @@ export class InteractiveCalculator {
                     else {
                         var errorMessage = 'Unknown error evaluating expression';
                     }
-                    this.output.write(errorMessage);
+                    this.write(errorMessage);
                 }
             }
 
             if (this.running) this.rl.prompt();
+            else this.onExit();
         });
+    }
+
+    write(value) {
+        this.output.write(value + '\n');
     }
 
     switchAngleMode(useRadians) {
