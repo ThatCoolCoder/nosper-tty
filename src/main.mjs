@@ -32,5 +32,5 @@ if (process.argv.length > 2)
 else
 {
     // Run interactive mode
-    new InteractiveCalculator(console, readlineSync.question).mainLoop();
+    new InteractiveCalculator(process.stdin, process.stdout).start();
 }

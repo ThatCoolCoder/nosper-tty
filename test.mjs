@@ -1,4 +1,3 @@
-import readlineSync from 'readline-sync';
 import { createInterface } from 'readline';
 
 const rl = createInterface({
@@ -13,7 +12,7 @@ rl._addHistory = function() {
     return line;
 }
 
-rl.history.push("toilet");      
+rl.history.push("toilet"); 
 
 process.stdin.setEncoding('utf8');
 
