@@ -15,54 +15,54 @@ export class InteractiveCalculator {
         'exit' : () => {
             this.running = false;
         }, 'help' : () => {
-            this.console.log(texts.helpMessage)
+            this.write(texts.helpMessage)
         }, 'morehelp' : () => {
-            this.console.log(texts.moreHelpMessage)
+            this.write(texts.moreHelpMessage)
         }, 'ang' : () => {
             var angleModeName = this.evaluator.context.useRadians ? 'radians' : 'degrees';
-            this.console.log(`Current angle mode is ${angleModeName}`);
+            this.write(`Current angle mode is ${angleModeName}`);
         }, 'rad' : () => {
             this.switchAngleMode(true);
         }, 'deg' : () => {     
             this.switchAngleMode(false);
         }, 'load' : (args) => {
-            if (args.length != 1) this.console.log('Expected the name of a set to be provided');
+            if (args.length != 1) this.write('Expected the name of a set to be provided');
             if (this.checkLoadableExists(args[0])) {
                 this.evaluator.load(loadables[args[0]]);
-                this.console.log(`Loaded ${args[0]}`);
+                this.write(`Loaded ${args[0]}`);
             }
         }, 'unload' : (args) => {
-            if (args.length != 1) this.console.log('Expected the name of a set to be provided');
+            if (args.length != 1) this.write('Expected the name of a set to be provided');
             if (this.checkLoadableExists(args[0])) {
                 this.evaluator.unload(loadables[args[0]]);
-                this.console.log(`Unloaded ${args[0]}`);
+                this.write(`Unloaded ${args[0]}`);
             }
         }, 'listload' : () => {
             var formatted = Object.keys(loadables).map(k => {
                 return `- ${k} (${loadables[k].description})`;
             }).join('\n');
-            this.console.log(`Loadables:\n${formatted}`);
+            this.write(`Loadables:\n${formatted}`);
         }, 'loadinfo' : (args) => {
-            if (args.length != 1) this.console.log('Expected the name of a set to be provided');
+            if (args.length != 1) this.write('Expected the name of a set to be provided');
             if (this.checkLoadableExists(args[0])) {
                 var loadable = loadables[args[0]];
                 
-                this.console.log(`${args[0]} - ${loadable.description}`);
-                this.console.log(`${loadable.longDescription}`);
+                this.write(`${args[0]} - ${loadable.description}`);
+                this.write(`${loadable.longDescription}`);
 
-                this.console.log(`Variables`);
-                this.console.log(loadable.variables.listData().map(k => {
+                this.write(`Variables`);
+                this.write(loadable.variables.listData().map(k => {
                     return `- $${k} (${loadable.variables.get(k)}): ${loadable.variableIndex[k]}`;
                 }).join('\n'));
 
-                this.console.log(`\nFunctions`);
-                this.console.log(loadable.functions.listData().map(k => {
+                this.write(`\nFunctions`);
+                this.write(loadable.functions.listData().map(k => {
                     return `- &${k}: ${loadable.functionIndex[k]}`;
                 }).join('\n'));
             }
         }, 'dispnorm' : () => {
             this.displayMode = new NormalDisplayMode();
-            this.console.log('Set display mode to normal');
+            this.write('Set display mode to normal');
         }, 'dispsci' : (args) => {
             var numDigits = NaN;
             if (args.length >= 1) {
@@ -72,7 +72,7 @@ export class InteractiveCalculator {
                 numDigits = 4;
             }
             this.displayMode = new ScientificDisplayMode(numDigits);
-            this.console.log(`Set display mode to scientific (${numDigits} digits)`)
+            this.write(`Set display mode to scientific (${numDigits} digits)`)
         }
     };
     
@@ -142,10 +142,10 @@ export class InteractiveCalculator {
     switchAngleMode(useRadians) {
         var angleModeName = useRadians ? 'radians' : 'degrees';
         if (useRadians == this.evaluator.context.useRadians) {
-            this.console.log(`Already in ${angleModeName} mode`);
+            this.write(`Already in ${angleModeName} mode`);
         }
         else {
-            this.console.log(`Switched to ${angleModeName}`);
+            this.write(`Switched to ${angleModeName}`);
             this.evaluator.context.useRadians = useRadians;
         }
     }
@@ -155,7 +155,7 @@ export class InteractiveCalculator {
             return true;
         }
         else {
-            this.console.log(`Loadable ${loadableName} does not exist`);
+            this.write(`Loadable ${loadableName} does not exist`);
             return false;
         }
     }
