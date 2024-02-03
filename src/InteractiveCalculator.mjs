@@ -26,38 +26,39 @@ export class InteractiveCalculator {
         }, 'deg' : () => {     
             this.switchAngleMode(false);
         }, 'load' : (args) => {
-            if (args.length != 1) this.write('Expected the name of a set to be provided');
+            if (args.length != 1) this.write('Expected the name of a loadable to be provided');
             if (this.checkLoadableExists(args[0])) {
-                this.evaluator.load(loadables[args[0]]);
+                this.evaluator.applyLoadable(loadables[args[0]]);
                 this.write(`Loaded ${args[0]}`);
             }
         }, 'unload' : (args) => {
-            if (args.length != 1) this.write('Expected the name of a set to be provided');
+            if (args.length != 1) this.write('Expected the name of a loadable to be provided');
             if (this.checkLoadableExists(args[0])) {
-                this.evaluator.unload(loadables[args[0]]);
+                this.evaluator.removeLoadable(loadables[args[0]]);
                 this.write(`Unloaded ${args[0]}`);
             }
         }, 'listload' : () => {
             var formatted = Object.keys(loadables).map(k => {
-                return `- ${k} (${loadables[k].description})`;
+                return `- ${k} (${loadables[k].name})`;
             }).join('\n');
             this.write(`Loadables:\n${formatted}`);
         }, 'loadinfo' : (args) => {
-            if (args.length != 1) this.write('Expected the name of a set to be provided');
+            if (args.length != 1) this.write('Expected the name of a loadable to be provided');
             if (this.checkLoadableExists(args[0])) {
                 var loadable = loadables[args[0]];
                 
-                this.write(`${args[0]} - ${loadable.description}`);
-                this.write(`${loadable.longDescription}`);
+                this.write(`${args[0]} - ${loadable.name}`);
+                this.write(`${loadable.description}`);
 
                 this.write(`Variables`);
-                this.write(loadable.variables.listData().map(k => {
-                    return `- $${k} (${loadable.variables.get(k)}): ${loadable.variableIndex[k]}`;
+                this.write(Object.keys(loadable.variables).map(k => {
+                    return `- ${k} (${loadable.variables[k].value}): ${loadable.variables[k].description}`;
                 }).join('\n'));
 
                 this.write(`\nFunctions`);
-                this.write(loadable.functions.listData().map(k => {
-                    return `- &${k}: ${loadable.functionIndex[k]}`;
+                this.write(Object.keys(loadable.functions).map(k => {
+                    var args = loadable.functions[k].args.join(', ');
+                    return `- @${k}(${args}): ${loadable.functions[k].description}`;
                 }).join('\n'));
             }
         }, 'dispnorm' : () => {
