@@ -4,16 +4,16 @@ loadables.phys = {
     name: 'Physics utilities',
     description: 'Works nicely with the "unit" loadable',
     variables: {
-        '_grav' : { value: 9.81, description: 'Force of gravity on earth' },
+        'a_grav' : { value: 9.81, description: 'Acceleration due to gravity on earth\'s surface' },
         'G' : { value: 6.6743e-11, description: 'Universal gravitatonal constant' },
         'c' : { value: 299792458, description: 'Speed of light (in metres per second)' },
-        '_elec' : { value: 1.60217663e-19, description: 'Change of an electron (in coloumbs)' }
+        'c_elec' : { value: 1.60217663e-19, description: 'Charge of an electron (in coloumbs)' }
     },
     functions: {
-        'grav' : { args: ['r', 'm_1', 'm_2'], body: 'G m_1 m_2 / r^2', description: 'Force of gravity between two objects' },
-        'earthrange' : { args: ['v', '_angle'], body: 'v^2 * sin(2 * _angle) / _grav', description: 'Range of object thrown at an angle' },
-        'range' : { args: ['v', '_angle', '_gravity'], body: 'v^2 * sin(2 * _angle) / _gravity', description: 'Range of thrown object (speed in m/s, angle, gravity)' },
-        'weight' : { args: ['m'], body: 'm * _grav', description: 'Weight of object on earth' },
+        'grav' : { args: ['r', 'm_1', 'm_2'], body: 'G m_1 m_2 / r^2', description: 'Force of gravitational attraction between two objects' },
+        'earthrange' : { args: ['v', '_angle'], body: 'v^2 * sin(2 * _angle) / a_grav', description: 'Range of object thrown at an angle, on earth' },
+        'range' : { args: ['v', '_angle', 'a_gravity'], body: 'v^2 * sin(2 * _angle) / a_gravity', description: 'Range of thrown object (speed in m/s, angle, gravity)' },
+        'weight' : { args: ['m'], body: 'm * a_grav', description: 'Weight of object on earth' },
         'acceldist' : { args: ['v_i', 'a', 't'], body: 'v_i t + 1/2 at^2', description: 'Distance moved by an accelerating object' }
     }
 };
