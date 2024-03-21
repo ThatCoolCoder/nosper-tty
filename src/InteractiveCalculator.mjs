@@ -15,9 +15,11 @@ export class InteractiveCalculator {
         'exit' : () => {
             this.running = false;
         }, 'help' : () => {
-            this.write(texts.helpMessage)
+            this.write(texts.helpMessage);
         }, 'morehelp' : () => {
-            this.write(texts.moreHelpMessage)
+            this.write(texts.moreHelpMessage);
+        }, 'commands' : () => {
+            this.write(texts.commandsHelpMessage);
         }, 'ang' : () => {
             var angleModeName = this.evaluator.context.useRadians ? 'radians' : 'degrees';
             this.write(`Current angle mode is ${angleModeName}`);
